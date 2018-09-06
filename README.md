@@ -7,4 +7,6 @@
  https://codedaily.io/courses/4/Show-An-Error-Message-When-A-Video-Fails-to-Load-in-React-Native/34 <br/>
  Step 04: Show an Animated Buffering Icon When Remote Videos are Loading in React Native <br/>
  https://codedaily.io/courses/4/Show-an-Animated-Buffering-Icon-When-Remote-Videos-are-Loading-in-React-Native/35 <br/>
+ Step 05: Create a Looping Background Video with React Native Video <br/>
+ https://codedaily.io/courses/4/Create-a-Looping-Background-Video-with-React-Native-Video/36 <br/>
  
