@@ -1,64 +1,73 @@
 import React, { Component } from "react";
-import { StyleSheet, View, TextInput, Text, Keyboard, TouchableWithoutFeedback, Button } from "react-native";
+import { StyleSheet, View, ScrollView, Dimensions, Text } from "react-native";
 import Video from "react-native-video";
 import LightVideo from "./big_buck_bunny.mp4";
 
+const THRESHOLD = 100;
+
 export default class rnvideo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      paused: true
+    };
+  }
+
+  position = {
+    start: null,
+    end: null
+  };
+
+  handleVideoLayout = (e) => {
+    const { height } = Dimensions.get('window');
+    this.position.start = e.nativeEvent.layout.y - height + THRESHOLD;
+    this.position.end = e.nativeEvent.layout.y + e.nativeEvent.layout.height - THRESHOLD;
+  }
+
+  handleScroll = (e) => {
+    const scrollPosition = e.nativeEvent.contentOffset.y;
+    const paused = this.state.paused;
+    const { start, end } = this.position;
+
+    if (scrollPosition > start && scrollPosition < end && paused) {
+      this.setState({ paused: false });
+    } else if ((scrollPosition > end || scrollPosition < start) && !paused) {
+      this.setState({ paused: true }); 
+    }
+  }
+
   render() {
+    const { width } = Dimensions.get('window');
     return (
-      <TouchableWithoutFeedback style={{ flex: 1 }} onPress={() => Keyboard.dismiss()}>
-        <View style={styles.container}>
-          <Video repeat source={LightVideo} resizeMode="cover" style={StyleSheet.absoluteFill} />
-          <View>
-            <Text style={styles.header}>Login Form</Text>
-            <View style={styles.clearContainer}>
-              <TextInput
-                placeholder="Email"
-                underlineColorAndroid={'transparent'}
-                placeholderTextColor={'#95a5a6'}
-                style={styles.input}
-              />
-              <TextInput
-                placeholder="Password"
-                underlineColorAndroid={'transparent'}
-                placeholderTextColor={'#95a5a6'}
-                secureTextEntry
-                style={styles.input}
-              />
-            </View>
-            <View style={styles.clearContainer}>
-              <Button title="Login" onPress={() => alert('login pressed.')} />
-            </View>
+      <View style={styles.container}>
+        <ScrollView scrollEventThrottle={16} onScroll={this.handleScroll}>
+          <View style={styles.fakeContent}>
+            <Text>{this.state.paused ? 'Paused' : 'Playing'}</Text>
           </View>
-        </View>
-      </TouchableWithoutFeedback>
+          <Video
+            repeat
+            source={LightVideo}
+            paused={this.state.paused}
+            style={{ width, height: 300 }}
+            onLayout={this.handleVideoLayout}
+          />
+          <View style={styles.fakeContent}>
+            <Text>{this.state.paused ? 'Paused' : 'Playing'}</Text>
+          </View>
+        </ScrollView>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
+  },
+  fakeContent: {
+    height: 850,
+    backgroundColor: "#CCC",
+    paddingTop: 250,
     alignItems: "center",
-    justifyContent: "center",
-  },
-  header: {
-    fontSize: 30,
-    color: "#FFF",
-    backgroundColor: "transparent",
-    textAlign: "center"
-  },
-  clearContainer: {
-    paddingTop: 30
-  },
-  input: {
-    width: 300,
-    height: 40,
-    backgroundColor: "#FFF",
-    marginVertical: 15,
-    paddingLeft: 15,
-    borderWidth: 1,
-    borderColor: '#ecf0f1',
-    borderRadius: 30
   }
 });
