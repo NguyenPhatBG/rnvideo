@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, Dimensions, TouchableWithoutFeedback } from "react-native";
+import { StyleSheet, View, Text, Dimensions, TouchableWithoutFeedback, Animated, PanResponder } from "react-native";
 import Video from "react-native-video";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ProgressBar from 'react-native-progress/Bar';
@@ -19,7 +19,20 @@ export default class rnvideo extends Component {
     };
   }
 
+  animated = new Animated.Value(0)
+
+  componentWillMount = () => {
+    this.panResponder = PanResponder.create({
+      onMoveShouldSetPanResponderCapture: () => {
+        this.triggerShowHide();
+        return false;
+      }
+    })
+  };
+
+
   handleLoad = (meta) => {
+    this.triggerShowHide();
     this.setState({
       duration: meta.duration
     });
@@ -52,15 +65,46 @@ export default class rnvideo extends Component {
     this.player.seek(progress);
   }
 
+  triggerShowHide = () => {
+    clearTimeout(this.hideTimeout);
+    Animated.timing(this.animated, {
+      toValue: 1,
+      duration: 100
+    }).start();
+    this.hideTimeout = setTimeout(() => {
+      Animated.timing(this.animated, {
+        toValue: 0,
+        duration: 300
+      }).start();
+    }, 1500);
+  }
+
   render() {
     const { width } = Dimensions.get('window');
     const height = width * .5625;
+
+    const interpolatedControls = this.animated.interpolate({
+      inputRange: [0, 1],
+      outputRange: [48, 0],
+    })
+
+    const controlHideStyle = {
+      transform: [
+        {
+          translateY: interpolatedControls
+        }
+      ]
+    }
     return (
       <View style={styles.container}>
-        <View>
+        <View 
+          {...this.panResponder.panHandlers}
+          style={styles.videoContainer}
+        >
           <Video
             paused={this.state.paused}
             source={LightVideo}
+            repeat={true}
             style={{ width: '100%', height }}
             resizeMode='contain'
             onLoad={this.handleLoad}
@@ -70,7 +114,7 @@ export default class rnvideo extends Component {
               this.player = ref
             }}
           />
-          <View style={styles.controls}>
+          <Animated.View style={[styles.controls, controlHideStyle]}>
             <TouchableWithoutFeedback onPress={this.handleMainButtonTouch}>
               <Icon name={!this.state.paused ? 'pause' : 'play'} size={30} color={'#FFF'} />
             </TouchableWithoutFeedback>
@@ -89,7 +133,7 @@ export default class rnvideo extends Component {
             <Text style={styles.duration}>
               {secondsToTime(Math.floor(this.state.progress * this.state.duration))}
             </Text>
-          </View>
+          </Animated.View>
         </View>
       </View>
     );
@@ -100,6 +144,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 250
+  },
+  videoContainer: {
+    overflow: 'hidden',
+    zIndex: 9999 // required on Android
   },
   controls: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
