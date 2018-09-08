@@ -15,3 +15,6 @@
  https://codedaily.io/courses/4/Create-a-Video-that-Auto-Plays-when-Scrolled-into-View-in-React-Native/37 <br/>
  Step 08: Create Custom Controls for React Native Video <br/>
  https://codedaily.io/courses/4/Fundamentals-of-React-Native-Video/38 <br/>
+ Step 09: Build Interactive Video Controls that Animate Visible and Hidden for React Native Video <br/>
+ https://codedaily.io/courses/4/Create-Controls-that-HideShow-When-Video-Is-Interacted-With-in-React-Native/39
+ 
