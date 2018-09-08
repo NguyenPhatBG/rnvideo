@@ -13,4 +13,5 @@
  https://codedaily.io/courses/4/Create-a-Looping-Background-Video-with-React-Native-Video/36 <br/>
  Step 07: Create a Video that Auto Plays when Scrolled into View in React Native <br/>
  https://codedaily.io/courses/4/Create-a-Video-that-Auto-Plays-when-Scrolled-into-View-in-React-Native/37 <br/>
- 
+ Step 08: Create Custom Controls for React Native Video <br/>
+ https://codedaily.io/courses/4/Fundamentals-of-React-Native-Video/38 <br/>
