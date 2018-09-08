@@ -49,7 +49,7 @@ export default class rnvideo extends Component {
   handleProgressPress = (e) => {
     const position = e.nativeEvent.locationX;
     const progress = (position / 250) * this.state.duration;
-    this.player.seek(progress); 
+    this.player.seek(progress);
   }
 
   render() {
@@ -66,28 +66,30 @@ export default class rnvideo extends Component {
             onLoad={this.handleLoad}
             onProgress={this.handleProgress}
             onEnd={this.handleEnd}
-            ref={ref => this.player = ref}
+            ref={ref => {
+              this.player = ref
+            }}
           />
-        </View>
-        <View style={styles.controls}>
-          <TouchableWithoutFeedback onPress={this.handleMainButtonTouch}>
-            <Icon name={!this.state.paused ? 'pause' : 'play'} size={30} color={'#FFF'} />
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={this.handleProgressPress}>
-            <View>
-              <ProgressBar
-                progress={this.state.progress}
-                color={'#FFFFFF'}
-                unfilledColor='rgba(255,255,255,.5)'
-                borderColor="#FFFFFF"
-                width={250}
-                height={20}
-              />
-            </View>
-          </TouchableWithoutFeedback>
-          <Text style={styles.duration}>
-            {secondsToTime(Math.floor(this.state.progress * this.state.duration))}
-          </Text>
+          <View style={styles.controls}>
+            <TouchableWithoutFeedback onPress={this.handleMainButtonTouch}>
+              <Icon name={!this.state.paused ? 'pause' : 'play'} size={30} color={'#FFF'} />
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={this.handleProgressPress}>
+              <View>
+                <ProgressBar
+                  progress={this.state.progress}
+                  color={'#FFFFFF'}
+                  unfilledColor='rgba(255,255,255,.5)'
+                  borderColor="#FFFFFF"
+                  width={250}
+                  height={20}
+                />
+              </View>
+            </TouchableWithoutFeedback>
+            <Text style={styles.duration}>
+              {secondsToTime(Math.floor(this.state.progress * this.state.duration))}
+            </Text>
+          </View>
         </View>
       </View>
     );
