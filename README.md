@@ -16,7 +16,7 @@
  Step 08: Create Custom Controls for React Native Video <br/>
  https://codedaily.io/courses/4/Fundamentals-of-React-Native-Video/38 <br/>
  Step 09: Build Interactive Video Controls that Animate Visible and Hidden for React Native Video <br/>
- https://codedaily.io/courses/4/Create-Controls-that-HideShow-When-Video-Is-Interacted-With-in-React-Native/39
+ https://codedaily.io/courses/4/Create-Controls-that-HideShow-When-Video-Is-Interacted-With-in-React-Native/39 <br/>
  Step 10: Create a Youtube Video Page with Animated Video Drag to Corner in React Native <br/>
  https://codeburst.io/create-a-youtube-video-page-with-animated-video-drag-to-corner-in-react-native-f1cf95d8e6c4 <br/>
  
