@@ -19,4 +19,5 @@
  https://codedaily.io/courses/4/Create-Controls-that-HideShow-When-Video-Is-Interacted-With-in-React-Native/39 <br/>
  Step 10: Create a Youtube Video Page with Animated Video Drag to Corner in React Native <br/>
  https://codeburst.io/create-a-youtube-video-page-with-animated-video-drag-to-corner-in-react-native-f1cf95d8e6c4 <br/>
+ https://medium.com/quick-code/react-native-video-component-68262bcbc21f
  
